@@ -2,12 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+
 # https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ws.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ws.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -19,5 +20,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

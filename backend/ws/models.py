@@ -31,7 +31,18 @@ class Card(models.Model):
     power = models.SmallIntegerField()
     soul = models.SmallIntegerField()
     TRIGGER_CHOICES = [
-        "None", "Soul1", "Soul2", "Pool", "Comeback", "Return", "Draw", "Treasure", "Shot", "Gate", "Choice", "Standby"
+        "None",
+        "Soul1",
+        "Soul2",
+        "Pool",
+        "Comeback",
+        "Return",
+        "Draw",
+        "Treasure",
+        "Shot",
+        "Gate",
+        "Choice",
+        "Standby",
     ]
     trigger = models.CharField(max_length=20, choices=TRIGGER_CHOICES, default="None")
     attributes = models.ManyToManyField(Attribute)
