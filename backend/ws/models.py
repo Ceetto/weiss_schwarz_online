@@ -45,7 +45,7 @@ class Card(models.Model):
         "Standby",
     ]
     trigger = models.CharField(max_length=20, choices=TRIGGER_CHOICES, default="None")
-    attributes = models.ManyToManyField(Attribute)
+    attributes = models.ManyToManyField(Attribute, related_name="cards")
     image = models.CharField(max_length=255)
 
 
