@@ -3,8 +3,6 @@
 import os
 import sys
 
-# https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB
-
 
 def main():
     """Run administrative tasks."""
