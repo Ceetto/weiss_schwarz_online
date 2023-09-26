@@ -7,6 +7,10 @@ https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB
 - Post: new card (admin)
 - Get: list of all cards (any auth). Filter on all fields
 - Get: Specific card (any auth)
+### Attributes
+- Post new attribute
+- Get specific attribute
+- Get list of attributes, filter on name?
 ### Sets
 - Post: new set (admin)
 - Get: Specific set (any auth)

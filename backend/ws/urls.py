@@ -17,11 +17,14 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from ws.views.card import CardViewSet
+from ws.views import AttributeViewSet, CardViewSet, DeckViewSet, SetViewSet
 
 router = DefaultRouter()
 
 router.register(r"cards", CardViewSet, basename="cards")
+router.register(r"attributes", AttributeViewSet, basename="attributes")
+router.register(r"sets", SetViewSet, basename="sets")
+router.register(r"decks", DeckViewSet, basename="decks")
 
 urlpatterns = [
     path("", include(router.urls)),

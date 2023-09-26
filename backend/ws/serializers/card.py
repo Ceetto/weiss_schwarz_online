@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ws.models import Card, Set
+from ws.models import Attribute, Card
 
 
 class CardSerializer(serializers.ModelSerializer):
@@ -11,5 +11,5 @@ class CardSerializer(serializers.ModelSerializer):
 
 class AttributeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Set
+        model = Attribute
         fields = "__all__"

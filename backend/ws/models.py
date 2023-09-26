@@ -3,12 +3,12 @@ from django.db import models
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30, unique=True, primary_key=True)
 
 
 class Set(models.Model):
     name = models.CharField(max_length=255)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10, primary_key=True)
 
 
 class Attribute(models.Model):
