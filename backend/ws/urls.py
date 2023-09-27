@@ -17,12 +17,14 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from ws.views import AttributeViewSet, CardViewSet, DeckViewSet, SetViewSet
+from ws.views import AbilityViewSet, AttributeViewSet, CardViewSet, DeckViewSet, NeoViewSet, SetViewSet
 
 router = DefaultRouter()
 
 router.register(r"cards", CardViewSet, basename="cards")
+router.register(r"abilities", AbilityViewSet, basename="abitlities")
 router.register(r"attributes", AttributeViewSet, basename="attributes")
+router.register(r"neos", NeoViewSet, basename="neos")
 router.register(r"sets", SetViewSet, basename="sets")
 router.register(r"decks", DeckViewSet, basename="decks")
 
