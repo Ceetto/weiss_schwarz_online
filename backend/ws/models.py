@@ -33,10 +33,10 @@ class Card(models.Model):
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default="Character")
     COLOUR_CHOICES = [("Y", "YELLOW"), ("G", "GREEN"), ("R", "RED"), ("B", "BLUE")]
     color = models.CharField(max_length=20, choices=COLOUR_CHOICES, default="YELLOW")
-    level = models.SmallIntegerField()
-    cost = models.SmallIntegerField()
-    power = models.SmallIntegerField()
-    soul = models.SmallIntegerField()
+    level = models.SmallIntegerField(null=True)
+    cost = models.SmallIntegerField(null=True)
+    power = models.SmallIntegerField(null=True)
+    soul = models.SmallIntegerField(null=True)
     TRIGGER_CHOICES = [
         ("None", "no trigger"),
         ("Soul1", "1 soul"),
