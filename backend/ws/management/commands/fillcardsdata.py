@@ -12,7 +12,7 @@ from ws.models import (
     User
 )
 
-SETS_URL = "https://api.github.com/repos/jchetti/WeissSchwarz-ENG-DB-fix/contents/DB"
+SETS_URL = "https://api.github.com/repos/Ceetto/WeissSchwarz-ENG-DB-fix/contents/DB"
 OLD_SETS_URL = "https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB"
 
 card_data = [
@@ -53,15 +53,12 @@ triggers_mapping["['SOUL']"] = "Soul1"
 triggers_mapping["['SOUL', 'SOUL']"] = "Soul2"
 triggers_mapping["['POOL']"] = "Pool"
 triggers_mapping["['COMEBACK']"] = "Comeback"
-# triggers_mapping["['SALVAGE']"] = "Comeback"
-# triggers_mapping["['SOUL', 'SALVAGE']"] = "Comeback"
 triggers_mapping["['SOUL', 'RETURN']"] = "Return"
 triggers_mapping["['DRAW']"] = "Draw"
 triggers_mapping["['TREASURE']"] = "Treasure"
 triggers_mapping["['SOUL', 'SHOT']"] = "Shot"
 triggers_mapping["['SOUL', 'GATE']"] = "Gate"
 triggers_mapping["['CHOICE']"] = "Choice"
-# triggers_mapping["['RETURN']"] = "Choice"
 triggers_mapping["['SOUL', 'STANDBY']"] = "Standby"
 
 
@@ -116,6 +113,7 @@ class Command(BaseCommand):
                     ats = Attribute.objects.filter(name__in=card["attributes"])
 
                     card_obj = Card(
+                        sid=f"{card['side']}{card['release']}-{card['sid']}",
                         code=card['code'],
                         name=card['name'],
                         set=release_set,

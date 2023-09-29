@@ -25,7 +25,8 @@ class Ability(models.Model):
 
 class Card(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=20, primary_key=True)
+    code = models.CharField(max_length=20)
+    sid = models.CharField(max_length=20, primary_key=True)
     set = models.ForeignKey(Set, on_delete=models.CASCADE, related_name="cards")
     neo = models.ForeignKey(Neo, on_delete=models.CASCADE, related_name="cards")
     rarity = models.CharField(max_length=10)
