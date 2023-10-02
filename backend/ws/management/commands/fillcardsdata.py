@@ -12,8 +12,7 @@ from ws.models import (
     User
 )
 
-SETS_URL = "https://api.github.com/repos/Ceetto/WeissSchwarz-ENG-DB-fix/contents/DB"
-OLD_SETS_URL = "https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB"
+SETS_URL = "https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB"
 
 card_data = [
     {
@@ -88,60 +87,58 @@ class Command(BaseCommand):
                 f"Weiss Schwarz DB error on {set_data['name']} {cards_data.status_code}"
 
             print(f"File: {set_data['name']}: {file_num}/{total}")
-            for card in cards_data.json():
-                try:
-                    ats = [Attribute(name=n) for n in card["attributes"]]
-                    for at in ats:
-                        at.save()
-                    release_set = Set(code=f"{card['set']}/{card['side']}{card['release']}", name=card["expansion"])
-                    release_set.save()
+            if len(Set.objects.filter(name=cards_data.json()[0]['expansion'])) == 0:
+                for card in cards_data.json():
+                    try:
+                        ats = [Attribute(name=n) for n in card["attributes"]]
+                        for at in ats:
+                            at.save()
+                        release_set = Set(code=f"{card['set']}/{card['side']}{card['release']}", name=card["expansion"])
+                        release_set.save()
 
-                    neo = Neo(name=card['set'])
-                    neo.save()
+                        neo = Neo(name=card['set'])
+                        neo.save()
 
-                    for ab in card["ability"]:
-                        try:
+                        for ab in card["ability"]:
                             ability = Ability(text=ab)
                             ability.save()
-                        except:
-                            pass
-                    abils = Ability.objects.filter(text__in=card['ability'])
+                        abils = Ability.objects.filter(text__in=card['ability'])
 
-                    for at in card["attributes"]:
-                        attribute = Attribute(name=at)
-                        attribute.save()
-                    ats = Attribute.objects.filter(name__in=card["attributes"])
+                        for at in card["attributes"]:
+                            attribute = Attribute(name=at)
+                            attribute.save()
+                        ats = Attribute.objects.filter(name__in=card["attributes"])
 
-                    card_obj = Card(
-                        sid=f"{card['side']}{card['release']}-{card['sid']}",
-                        code=card['code'],
-                        name=card['name'],
-                        set=release_set,
-                        neo=neo,
-                        rarity=card['rarity'],
-                        type=card['type'],
-                        color=card['color'],
-                        # level=level,
-                        # cost=cost,
-                        # power=power,
-                        # soul=int(card['soul']),
-                        trigger=triggers_mapping[str(card['trigger'])],
-                        # attributes=ats,
-                        # abilities=abs,
-                        image=card["image"]
-                    )
-                    if card['type'] == "Character" or card['type'] == "Event":
-                        card_obj.cost = int(card['cost'])
-                        card_obj.level = int(card['level'])
-                    if card['type'] == "Character":
-                        card_obj.power = int(card['power'])
-                        card_obj.soul = int(card['soul'])
-                    card_obj.save()
-                    if card['type'] == "Character":
-                        card_obj.attributes.set(ats)
-                    card_obj.abilities.set(abils)
-                except Exception:
-                    print(f"Error with card: {card['code']} {card['name']}")
-                    f.write(f"{card}\n")
+                        card_obj = Card(
+                            sid=f"{card['side']}{card['release']}-{card['sid']}",
+                            code=card['code'],
+                            name=card['name'],
+                            set=release_set,
+                            neo=neo,
+                            rarity=card['rarity'],
+                            type=card['type'],
+                            color=card['color'],
+                            # level=level,
+                            # cost=cost,
+                            # power=power,
+                            # soul=int(card['soul']),
+                            trigger=triggers_mapping[str(card['trigger'])],
+                            # attributes=ats,
+                            # abilities=abs,
+                            image=card["image"]
+                        )
+                        if card['type'] == "Character" or card['type'] == "Event":
+                            card_obj.cost = int(card['cost'])
+                            card_obj.level = int(card['level'])
+                        if card['type'] == "Character":
+                            card_obj.power = int(card['power'])
+                            card_obj.soul = int(card['soul'])
+                        card_obj.save()
+                        if card['type'] == "Character":
+                            card_obj.attributes.set(ats)
+                        card_obj.abilities.set(abils)
+                    except Exception:
+                        print(f"Error with card: {card['code']} {card['name']}")
+                        f.write(f"{card}\n")
 
         f.close()
