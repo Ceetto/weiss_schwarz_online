@@ -6,18 +6,19 @@ class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True, primary_key=True)
 
 
-class Set(models.Model):
-    name = models.CharField(max_length=255)
-    code = models.CharField(max_length=10, unique=True)
-    setId = models.CharField(max_length=10, primary_key=True)
-
-
 class Attribute(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
 
 class Neo(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
+
+
+class Set(models.Model):
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=10, unique=True)
+    setId = models.CharField(max_length=10, primary_key=True)
+    neo = models.ForeignKey(Neo, on_delete=models.CASCADE, related_name="sets")
 
 
 class Ability(models.Model):
@@ -31,7 +32,11 @@ class Card(models.Model):
     set = models.ForeignKey(Set, on_delete=models.CASCADE, related_name="cards")
     neo = models.ForeignKey(Neo, on_delete=models.CASCADE, related_name="cards")
     rarity = models.CharField(max_length=10)
-    TYPE_CHOICES = [("Character", "Character"), ("Climax", "Climax"), ("Event", "Event")]
+    TYPE_CHOICES = [
+        ("Character", "Character"),
+        ("Climax", "Climax"),
+        ("Event", "Event"),
+    ]
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default="Character")
     COLOUR_CHOICES = [("Y", "YELLOW"), ("G", "GREEN"), ("R", "RED"), ("B", "BLUE")]
     color = models.CharField(max_length=20, choices=COLOUR_CHOICES, default="YELLOW")

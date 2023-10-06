@@ -1,8 +1,16 @@
+from django.db.models import Q
 from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from ws.models import Ability, Attribute, Card, Neo
-from ws.serializers import AbilitySerializer, AttributeSerializer, CardSerializer, NeoSerializer
-from django.db.models import Q
+from ws.serializers import (
+    AbilitySerializer,
+    AttributeSerializer,
+    CardSerializer,
+    NeoSerializer,
+    SetSerializer,
+)
 
 
 class CardViewSet(viewsets.ModelViewSet):
@@ -28,12 +36,14 @@ class CardViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Card.objects.all()
 
-        search = self.request.query_params.get('search')
-        attributes = self.request.query_params.get('traits')
+        search = self.request.query_params.get("search")
+        attributes = self.request.query_params.get("traits")
 
         if search is not None:
             abils = Ability.objects.filter(text__contains=search)
-            queryset = queryset.filter(Q(name__contains=search) | Q(abilities__in=abils))
+            queryset = queryset.filter(
+                Q(name__contains=search) | Q(abilities__in=abils)
+            )
 
         if attributes is not None:
             queryset = queryset.filter(attributes__in=attributes)
@@ -50,6 +60,13 @@ class NeoViewSet(viewsets.ModelViewSet):
     serializer_class = NeoSerializer
     queryset = Neo.objects.all()
     permission_classes = [permissions.AllowAny]
+
+    @action(detail=True)
+    def sets(self, request, pk=None):
+        neo: Neo = self.get_object()
+        sets = neo.sets.all()
+        serializer = SetSerializer(sets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class AbilityViewSet(viewsets.ModelViewSet):

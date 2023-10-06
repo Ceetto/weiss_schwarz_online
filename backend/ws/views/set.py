@@ -1,4 +1,4 @@
-from rest_framework import permissions, viewsets, status
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -11,6 +11,11 @@ class SetViewSet(viewsets.ModelViewSet):
     queryset = Set.objects.all()
     # TODO permissions
     permission_classes = [permissions.AllowAny]
+
+    filterset_fields = {
+        "neo": ["exact", "in"],
+    }
+    search_fields = ["name"]
 
     @action(detail=True)
     def cards(self, request, pk=None):

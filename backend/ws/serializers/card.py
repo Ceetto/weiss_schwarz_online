@@ -25,4 +25,3 @@ class AbilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Ability
         fields = "__all__"
-

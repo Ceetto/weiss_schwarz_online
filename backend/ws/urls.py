@@ -17,7 +17,14 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from ws.views import AbilityViewSet, AttributeViewSet, CardViewSet, DeckViewSet, NeoViewSet, SetViewSet
+from ws.views import (
+    AbilityViewSet,
+    AttributeViewSet,
+    CardViewSet,
+    DeckViewSet,
+    NeoViewSet,
+    SetViewSet,
+)
 
 router = DefaultRouter()
 
