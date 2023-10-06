@@ -8,14 +8,13 @@ from ws.serializers import CardSerializer, SetSerializer
 
 class SetViewSet(viewsets.ModelViewSet):
     serializer_class = SetSerializer
-    permission_classes = [permissions.IsAuthenticated]
     queryset = Set.objects.all()
+    # TODO permissions
+    permission_classes = [permissions.AllowAny]
 
     @action(detail=True)
-    def cards(self, request):
-        set_id = self.get_object().id
-        cards = Card.objects.filter(
-            set=set_id
-        )
+    def cards(self, request, pk=None):
+        set_self: Set = self.get_object()
+        cards = set_self.cards.all()
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

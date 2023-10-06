@@ -90,7 +90,8 @@ class Command(BaseCommand):
             if len(Set.objects.filter(name=cards_data.json()[0]['expansion'])) == 0:
                 for card in cards_data.json():
                     try:
-                        release_set = Set(code=f"{card['set']}/{card['side']}{card['release']}", name=card["expansion"])
+                        release_set = Set(setId=f"{card['side']}{card['release']}", name=card["expansion"],
+                                          code=f"{card['set']}/{card['side']}{card['release']}")
                         release_set.save()
 
                         neo = Neo(name=card['set'])

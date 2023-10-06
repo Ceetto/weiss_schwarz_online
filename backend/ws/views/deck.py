@@ -7,4 +7,5 @@ from ws.serializers import CardSerializer, DeckSerializer
 class DeckViewSet(viewsets.ModelViewSet):
     serializer_class = DeckSerializer
     queryset = Deck.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # TODO permissions
+    permission_classes = [permissions.AllowAny]
