@@ -90,9 +90,6 @@ class Command(BaseCommand):
             if len(Set.objects.filter(name=cards_data.json()[0]['expansion'])) == 0:
                 for card in cards_data.json():
                     try:
-                        ats = [Attribute(name=n) for n in card["attributes"]]
-                        for at in ats:
-                            at.save()
                         release_set = Set(code=f"{card['set']}/{card['side']}{card['release']}", name=card["expansion"])
                         release_set.save()
 
@@ -100,8 +97,11 @@ class Command(BaseCommand):
                         neo.save()
 
                         for ab in card["ability"]:
-                            ability = Ability(text=ab)
-                            ability.save()
+                            try:
+                                ability = Ability(text=ab)
+                                ability.save()
+                            except:
+                                pass
                         abils = Ability.objects.filter(text__in=card['ability'])
 
                         for at in card["attributes"]:
@@ -118,13 +118,7 @@ class Command(BaseCommand):
                             rarity=card['rarity'],
                             type=card['type'],
                             color=card['color'],
-                            # level=level,
-                            # cost=cost,
-                            # power=power,
-                            # soul=int(card['soul']),
                             trigger=triggers_mapping[str(card['trigger'])],
-                            # attributes=ats,
-                            # abilities=abs,
                             image=card["image"]
                         )
                         if card['type'] == "Character" or card['type'] == "Event":

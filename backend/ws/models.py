@@ -20,7 +20,7 @@ class Neo(models.Model):
 
 
 class Ability(models.Model):
-    text = models.CharField(max_length=500, primary_key=True)
+    text = models.CharField(max_length=500, unique=True)
 
 
 class Card(models.Model):
