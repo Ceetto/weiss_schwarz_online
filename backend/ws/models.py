@@ -3,7 +3,9 @@ from django.db import models
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=30, unique=True, primary_key=True)
+    email = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=30, unique=True)
+    is_admin = models.BooleanField(default=False)
 
 
 class Attribute(models.Model):

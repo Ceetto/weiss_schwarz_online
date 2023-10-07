@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ws.models import Ability, Attribute, Card, Neo
+from ws.permissions import IsAdmin
 from ws.serializers import (
     AbilitySerializer,
     AttributeSerializer,

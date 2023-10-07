@@ -25,7 +25,8 @@ class Command(BaseCommand):
         parser.add_argument("admin_pass", type=str, action="store")
 
     def handle(self, *args, **options):
-        u = User(username="Admin")
+        User.objects.all().delete()
+        u = User(username="Admin", email="admin@mail.com", is_admin=True)
         u.set_password(options["admin_pass"])
         u.save()
 
