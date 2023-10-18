@@ -28,7 +28,7 @@ from ws.views import (
     NeoViewSet,
     RegisterView,
     SetViewSet,
-    UserViewSet,
+    UserViewSet, ChangePasswordView,
 )
 
 router = DefaultRouter()
@@ -45,6 +45,7 @@ login_urls = [
     path("login/", MyObtainTokenPairView.as_view(), name="token_obtain_pair"),
     path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("register/", RegisterView.as_view(), name="auth_register"),
+    path('change_password/<int:pk>/', ChangePasswordView.as_view(), name='auth_change_password'),
 ]
 
 urlpatterns = [

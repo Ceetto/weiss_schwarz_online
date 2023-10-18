@@ -1,4 +1,4 @@
-from ws.serializers.auth import MyTokenObtainPairSerializer, RegisterSerializer
+from ws.serializers.auth import MyTokenObtainPairSerializer, RegisterSerializer, ChangePasswordSerializer
 from ws.serializers.card import (
     AbilitySerializer,
     AttributeSerializer,
@@ -19,4 +19,5 @@ __all__ = [
     "UserSerializer",
     "MyTokenObtainPairSerializer",
     "RegisterSerializer",
+    "ChangePasswordSerializer",
 ]
