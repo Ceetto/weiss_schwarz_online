@@ -12,7 +12,8 @@ done
 shift $((OPTIND - 1))
 
 rm -f db.sqlite3
+python3 manage.py makemigration ws
 python3 manage.py migrate --run-syncdb
-python3 manage.py makemigration
 python3 manage.py migrate
-python3 manage.py fillcardsdata "${adminpass}"
+python3 manage.py fillcardsdata
+python3 manage.py reset_users "${adminpass}"

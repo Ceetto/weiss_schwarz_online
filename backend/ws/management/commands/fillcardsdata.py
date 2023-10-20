@@ -22,14 +22,9 @@ triggers_mapping["['SOUL', 'STANDBY']"] = "Standby"
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument("admin_pass", type=str, action="store")
+        pass
 
     def handle(self, *args, **options):
-        User.objects.all().delete()
-        u = User(username="Admin", email="admin@mail.com", is_admin=True)
-        u.set_password(options["admin_pass"])
-        u.save()
-
         sets_data = requests.get(SETS_URL, headers={"Accept": "application/json"})
         assert (
             sets_data.status_code == 200
