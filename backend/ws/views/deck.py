@@ -1,8 +1,9 @@
+from django.db.models import Q
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from ws.models import Card, Deck, DeckCard
+from ws.models import Card, Deck, DeckCard, Result
 from ws.permissions import IsAdmin
 from ws.serializers import CardSerializer, DeckSerializer
 
@@ -10,7 +11,6 @@ from ws.serializers import CardSerializer, DeckSerializer
 class DeckViewSet(viewsets.ModelViewSet):
     serializer_class = DeckSerializer
     queryset = Deck.objects.all()
-    # TODO permissions
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
@@ -46,6 +46,21 @@ class DeckViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+    # TODO once games get registered fix it so when a deck that has been used in a game gets updated it becomes
+    #  inactive and a new deck is created instead
+    def update(self, request, *args, **kwargs):
+        if "name" in request.data:
+            if Deck.objects.filter(user=request.user, name=request.data['name'], active=True).count() > 0:
+                return Response(
+                    {"Fail": "Deck with same name already exists"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        return super().update(request, *args, **kwargs)
+
+    def my_decks(self, request, *args, **kwargs):
+        decks = Deck.objects.filter(user=request.user).filter(active=True)
+        return Response(DeckSerializer(data=decks, many=True).data, status=status.HTTP_200_OK)
+
     # TODO check legality of deck
     def check_deck_legality(self, deck: list[str]):
-        return True
+        return len(deck) == 50
