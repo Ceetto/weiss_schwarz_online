@@ -12,13 +12,21 @@ from ws.serializers import (
     NeoSerializer,
     SetSerializer,
 )
+from ws.views.mixins import PermissionsByActionMixin
 
 
-class CardViewSet(viewsets.ModelViewSet):
+class CardViewSet(
+    PermissionsByActionMixin,
+    viewsets.ModelViewSet
+):
     serializer_class = CardSerializer
     queryset = Card.objects.all()
-    # TODO permissions
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated, IsAdmin]
+    permission_classes_by_action = {
+        "retrieve": [permissions.AllowAny],
+        "list": [permissions.AllowAny],
+
+    }
 
     filterset_fields = {
         "set": ["exact", "in"],
@@ -74,3 +82,5 @@ class AbilityViewSet(viewsets.ModelViewSet):
     serializer_class = AbilitySerializer
     queryset = Ability.objects.all()
     permission_classes = [permissions.AllowAny]
+
+    search_fields = ["text"]
