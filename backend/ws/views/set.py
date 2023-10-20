@@ -3,14 +3,21 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ws.models import Card, Set
+from ws.permissions import IsAdmin
 from ws.serializers import CardSerializer, SetSerializer
+from ws.views.mixins import PermissionsByActionMixin
 
 
-class SetViewSet(viewsets.ModelViewSet):
+class SetViewSet(PermissionsByActionMixin, viewsets.ModelViewSet):
     serializer_class = SetSerializer
     queryset = Set.objects.all()
     # TODO permissions
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated, IsAdmin]
+    permission_classes_by_action = {
+        "retrieve": [permissions.AllowAny],
+        "list": [permissions.AllowAny],
+        "cards": [permissions.AllowAny]
+    }
 
     filterset_fields = {
         "neo": ["exact", "in"],
