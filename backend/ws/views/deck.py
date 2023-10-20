@@ -57,9 +57,11 @@ class DeckViewSet(viewsets.ModelViewSet):
                 )
         return super().update(request, *args, **kwargs)
 
+    @action(methods=["GET"], detail=False)
     def my_decks(self, request, *args, **kwargs):
         decks = Deck.objects.filter(user=request.user).filter(active=True)
-        return Response(DeckSerializer(data=decks, many=True).data, status=status.HTTP_200_OK)
+        deck_serializer = DeckSerializer(decks, many=True)
+        return Response(deck_serializer.data, status=status.HTTP_200_OK)
 
     # TODO check legality of deck
     def check_deck_legality(self, deck: list[str]):
