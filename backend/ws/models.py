@@ -69,7 +69,9 @@ class Card(models.Model):
 class Deck(models.Model):
     name = models.CharField(max_length=255)
     cards = models.ManyToManyField(Card, through="DeckCard")
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="decks")
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="decks"
+    )
     public = models.BooleanField(default=True)
     legal = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
