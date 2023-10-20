@@ -3,7 +3,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ws.models import User
-from ws.serializers import MyTokenObtainPairSerializer, RegisterSerializer, ChangePasswordSerializer
+from ws.serializers import (
+    ChangePasswordSerializer,
+    MyTokenObtainPairSerializer,
+    RegisterSerializer,
+)
 
 
 class MyObtainTokenPairView(TokenObtainPairView):

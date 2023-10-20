@@ -1,4 +1,4 @@
-from ws.views.auth import MyObtainTokenPairView, RegisterView, ChangePasswordView
+from ws.views.auth import ChangePasswordView, MyObtainTokenPairView, RegisterView
 from ws.views.card import AbilityViewSet, AttributeViewSet, CardViewSet, NeoViewSet
 from ws.views.deck import DeckViewSet
 from ws.views.set import SetViewSet

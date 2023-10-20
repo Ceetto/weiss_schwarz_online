@@ -1,4 +1,4 @@
-from rest_framework import permissions, viewsets, status
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -27,18 +27,24 @@ class DeckViewSet(viewsets.ModelViewSet):
             public = request.data["public"]
 
             if Deck.objects.filter(user=user, name=name, active=True).count() > 0:
-                return Response({"Fail": "Deck with same name already exists"},
-                                status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"Fail": "Deck with same name already exists"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             deck = Deck(name=name, user=user, legal=legal, public=public)
             deck.save()
-            for c in request.data['cards']:
+            for c in request.data["cards"]:
                 deck_card = DeckCard(card_id=c, deck=deck)
                 deck_card.save()
-            return Response(DeckSerializer(deck, many=False).data, status=status.HTTP_201_CREATED)
+            return Response(
+                DeckSerializer(deck, many=False).data, status=status.HTTP_201_CREATED
+            )
         except KeyError:
-            return Response({"Fail": "Wrong data, give a name, public status and list of cards"},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"Fail": "Wrong data, give a name, public status and list of cards"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
     # TODO check legality of deck
     def check_deck_legality(self, deck: list[str]):

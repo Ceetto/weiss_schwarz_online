@@ -15,17 +15,13 @@ from ws.serializers import (
 from ws.views.mixins import PermissionsByActionMixin
 
 
-class CardViewSet(
-    PermissionsByActionMixin,
-    viewsets.ModelViewSet
-):
+class CardViewSet(PermissionsByActionMixin, viewsets.ModelViewSet):
     serializer_class = CardSerializer
     queryset = Card.objects.all()
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
     permission_classes_by_action = {
         "retrieve": [permissions.AllowAny],
         "list": [permissions.AllowAny],
-
     }
 
     filterset_fields = {

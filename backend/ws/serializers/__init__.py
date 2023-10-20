@@ -1,4 +1,8 @@
-from ws.serializers.auth import MyTokenObtainPairSerializer, RegisterSerializer, ChangePasswordSerializer
+from ws.serializers.auth import (
+    ChangePasswordSerializer,
+    MyTokenObtainPairSerializer,
+    RegisterSerializer,
+)
 from ws.serializers.card import (
     AbilitySerializer,
     AttributeSerializer,
