@@ -1,7 +1,7 @@
 import requests
 from django.core.management import BaseCommand
 
-from ws.models import Ability, Attribute, Card, Deck, Neo, Set, User
+from ws.models import Ability, Attribute, Card, Neo, Set
 
 SETS_URL = "https://api.github.com/repos/CCondeluci/WeissSchwarz-ENG-DB/contents/DB"
 

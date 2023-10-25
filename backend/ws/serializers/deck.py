@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ws.models import Deck, DeckCard
+from ws.models import Deck
 
 
 class DeckSerializer(serializers.ModelSerializer):

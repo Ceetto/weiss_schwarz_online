@@ -2,7 +2,7 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from ws.models import Card, Set
+from ws.models import Set
 from ws.permissions import IsAdmin
 from ws.serializers import CardSerializer, SetSerializer
 from ws.views.mixins import PermissionsByActionMixin
@@ -15,7 +15,7 @@ class SetViewSet(PermissionsByActionMixin, viewsets.ModelViewSet):
     permission_classes_by_action = {
         "retrieve": [permissions.AllowAny],
         "list": [permissions.AllowAny],
-        "cards": [permissions.AllowAny]
+        "cards": [permissions.AllowAny],
     }
 
     filterset_fields = {

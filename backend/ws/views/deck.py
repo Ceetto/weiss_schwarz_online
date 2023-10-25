@@ -1,12 +1,10 @@
-from django.db.models import Q
 from django.http import QueryDict
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from ws.models import Card, Deck, DeckCard, Result
-from ws.permissions import IsAdmin
-from ws.serializers import CardSerializer, DeckSerializer
+from ws.models import Deck, DeckCard
+from ws.serializers import DeckSerializer
 
 
 class DeckViewSet(viewsets.ModelViewSet):
@@ -53,12 +51,17 @@ class DeckViewSet(viewsets.ModelViewSet):
         if isinstance(request.data, QueryDict):
             request.data._mutable = True
         if "name" in request.data:
-            if Deck.objects.filter(user=request.user, name=request.data['name'], active=True).count() > 0:
+            if (
+                Deck.objects.filter(
+                    user=request.user, name=request.data["name"], active=True
+                ).count()
+                > 0
+            ):
                 return Response(
                     {"Fail": "Deck with same name already exists"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-        request.data['user'] = request.user.id
+        request.data["user"] = request.user.id
         if "cards" in request.data:
             DeckCard.objects.filter(deck=self.get_object()).delete()
             for c in request.data["cards"]:
@@ -70,7 +73,10 @@ class DeckViewSet(viewsets.ModelViewSet):
         if request.user == self.get_object().user or request.user.is_admin:
             return super().destroy(request, *args, **kwargs)
         else:
-            return Response({"Forbidden": "You do not own this deck"}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"Forbidden": "You do not own this deck"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
     @action(methods=["GET"], detail=False)
     def my_decks(self, request, *args, **kwargs):
