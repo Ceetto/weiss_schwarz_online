@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import QueryDict
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -49,13 +50,27 @@ class DeckViewSet(viewsets.ModelViewSet):
     # TODO once games get registered fix it so when a deck that has been used in a game gets updated it becomes
     #  inactive and a new deck is created instead
     def update(self, request, *args, **kwargs):
+        if isinstance(request.data, QueryDict):
+            request.data._mutable = True
         if "name" in request.data:
             if Deck.objects.filter(user=request.user, name=request.data['name'], active=True).count() > 0:
                 return Response(
                     {"Fail": "Deck with same name already exists"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+        request.data['user'] = request.user.id
+        if "cards" in request.data:
+            DeckCard.objects.filter(deck=self.get_object()).delete()
+            for c in request.data["cards"]:
+                deck_card = DeckCard(card_id=c, deck=self.get_object())
+                deck_card.save()
         return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        if request.user == self.get_object().user or request.user.is_admin:
+            return super().destroy(request, *args, **kwargs)
+        else:
+            return Response({"Forbidden": "You do not own this deck"}, status=status.HTTP_403_FORBIDDEN)
 
     @action(methods=["GET"], detail=False)
     def my_decks(self, request, *args, **kwargs):

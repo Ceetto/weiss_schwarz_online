@@ -14,7 +14,11 @@ class UserViewSet(PermissionsByActionMixin, viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-    permission_classes_by_action = {"me": [permissions.IsAuthenticated]}
+    permission_classes_by_action = {
+        "list": [permissions.IsAuthenticated],
+        "retrieve": [permissions.IsAuthenticated],
+        "me": [permissions.IsAuthenticated]
+    }
 
     @action(detail=False)
     def me(self, request, pk=None):

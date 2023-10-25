@@ -11,7 +11,6 @@ from ws.views.mixins import PermissionsByActionMixin
 class SetViewSet(PermissionsByActionMixin, viewsets.ModelViewSet):
     serializer_class = SetSerializer
     queryset = Set.objects.all()
-    # TODO permissions
     permission_classes = [permissions.IsAuthenticated, IsAdmin]
     permission_classes_by_action = {
         "retrieve": [permissions.AllowAny],
