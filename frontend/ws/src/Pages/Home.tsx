@@ -6,7 +6,7 @@ import Content from "../Components/Content/Content";
 function Home() {
     return (
         <div id={styles['main']}>
-            <Sidebar></Sidebar>
+            <Sidebar screen={'navbar'}></Sidebar>
             <Content></Content>
         </div>
 
