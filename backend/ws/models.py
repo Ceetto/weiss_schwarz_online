@@ -16,6 +16,8 @@ class Neo(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
 
+
+
 class Set(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=10, unique=True)

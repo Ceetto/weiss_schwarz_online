@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/ios": "^5.6.0",
+    "@capacitor/status-bar": "^5.0.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.18",
@@ -15,6 +19,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.6.2",
+    "axios-auth-refresh": "^3.3.6",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
@@ -55,5 +60,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.6.0"
   }
 }
