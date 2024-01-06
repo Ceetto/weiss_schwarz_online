@@ -19,6 +19,10 @@
     color: var(--colour-main-weiss);
 }
 
+.error{
+    color: var(--colour-error);
+}
+
 #login_screen{
     height: 100%;
     width: 50%;

@@ -5,4 +5,5 @@
     --color-background-grey: rgba(62, 54, 54, 0.5);
     --color-textfield-background-black: rgba(17, 17, 17, 0.5);
     --colour-textfield-labels: rgba(230, 230, 230, 0.7);
+    --colour-error: #e01818;
 }

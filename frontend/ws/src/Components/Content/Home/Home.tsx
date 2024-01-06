@@ -1,30 +1,50 @@
-import {useEffect, useState} from "react";
-import api from "../../../api/api";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {getMe, logout} from "../../../api/apiModule"
+import {User} from "../../../api/types"
+
+import styles from "../Content.module.css";
+import {Button, CircularProgress} from "@mui/material";
 
 function Home (){
     const navigate = useNavigate();
 
-    const [username, setUsername] = useState("");
+    const [user, setUser] = useState<User|null>(null)
 
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const result = await api.get("/users/me/")
-                setUsername(result.data["username"])
+                const me = await getMe();
+                setUser(me);
             } catch (err:any){
                 navigate("/login")
             }
         }
         fetchData();
-
     }, [])
 
-    return (
-        <div>
-            <h2>Welcome, {username}</h2>
-        </div>
-    )
+    const handleLogout = () => {
+        logout();
+        navigate("/login")
+    }
+    if (user){
+        return (
+            <div>
+                <h2 className={styles["normal_text"]}>Welcome, {user?.username}</h2>
+                <Button
+                    variant="contained"
+                    onClick={() => {handleLogout()}}
+                >
+                    Log Out
+                </Button>
+            </div>
+        )
+    } else {
+        return (
+            <CircularProgress />
+        )
+    }
+
 }
 
 export default Home

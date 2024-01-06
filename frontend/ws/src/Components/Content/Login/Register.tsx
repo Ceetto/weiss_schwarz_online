@@ -1,9 +1,8 @@
 import React, {useState} from "react";
-import {Button, Link, TextField} from "@mui/material";
-import axios from "axios";
-import api from "../../../api/api"
+import {Button, CircularProgress, Link, TextField} from "@mui/material";
 import styles from "../Content.module.css"
 import {useNavigate} from "react-router-dom";
+import {register} from "../../../api/apiModule";
 
 
 function Register(){
@@ -14,16 +13,62 @@ function Register(){
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
 
+    const [logLoading, setLogLoading] = useState(false);
+    const [usernameError, setUsernameError] = useState<string|null>(null);
+    const [emailError, setEmailError] = useState<string|null>(null);
+    const [passwordError, setPasswordError] = useState<string|null>(null);
+
     const handleRegister = async (username: string, email: string, password: string, password2: string) => {
-        // try {
-        //     const response = await axios
-        //         .post(`//${process.env.REACT_APP_API_URL}/auth/login/`, { username, password });
-        //     const tokens: {refresh: string, access: string} = response.data;
-        //     localStorage.setItem('access', tokens.access);
-        //     localStorage.setItem('refresh', tokens.refresh);
-        // } catch (err: any){
-        //     console.log(err.toString())
-        // }
+        setLogLoading(true);
+        register(username, email, password, password2)
+            .then(() => navigate("/login/"))
+            .catch(err =>{
+                setLogLoading(false);
+                const errData = err.response.data;
+                if (errData["username"]){
+                    setUsernameError(errData["username"]);
+                } else {
+                    setUsernameError(null);
+                }
+                if (errData["email"]){
+                    setEmailError(errData["email"]);
+                } else {
+                    setEmailError(null);
+                }
+                if (errData["password"]){
+                    setPasswordError(errData["password"]);
+                } else {
+                    setPasswordError(null);
+                }
+            })
+        setLogLoading(false);
+    }
+
+    function RegisterButton(loading: boolean){
+        if (loading){
+            return (
+                <Button className={styles['login_button']}
+                        sx={{color: "white", background:'black'}}
+                        variant="contained"
+                        disabled={true}
+                        onClick={() => handleRegister(username, email, password, password2)}
+                >
+                    <CircularProgress />
+                </Button>
+            )
+
+        } else {
+            return (
+                <Button className={styles['login_button']}
+                        sx={{color: "white", background:'black'}}
+                        variant="contained"
+                        disabled={false}
+                        onClick={() => handleRegister(username, email, password, password2)}
+                >
+                    CREATE ACCOUNT
+                </Button>
+            )
+        }
     }
 
 
@@ -42,53 +87,49 @@ function Register(){
                     <div id={styles['login_field']}>
                         <TextField
                             className={styles['login_textfield']}
-                            error={false}
                             label="Username"
                             variant="outlined"
+                            error={usernameError !== null}
+                            helperText={usernameError}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
                     <div id={styles['login_field']}>
                         <TextField
                             className={styles['login_textfield']}
-                            error={false}
                             label="Email"
                             variant="outlined"
+                            error={emailError !== null}
+                            helperText={emailError}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div id={styles['login_field']}>
                         <TextField
                             className={styles['login_textfield']}
-                            error={false}
                             label="Password"
                             type="password"
                             autoComplete="current-password"
+                            error={passwordError !== null}
+                            helperText={passwordError}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <div id={styles['login_field']}>
                         <TextField
                             className={styles['login_textfield']}
-                            error={false}
                             label="Confirm Password"
                             type="password"
                             autoComplete="current-password"
+                            error={passwordError !== null}
+                            helperText={passwordError}
                             onChange={(e) => setPassword2(e.target.value)}
                         />
                     </div>
                     <Link underline="none" href="#" onClick={() => {navigate("/login")}}>Already have an account</Link>
                 </div>
 
-                <div id={styles['login_buttons']}>
-                    <Button className={styles['login_button']}
-                            sx={{color: "white", background:'black'}}
-                            variant="contained"
-                            onClick={() => handleRegister(username, email, password, password2)}
-                    >
-                        CREATE ACCOUNT
-                    </Button>
-                </div>
+                {RegisterButton(logLoading)}
             </div>
 
         </div>
