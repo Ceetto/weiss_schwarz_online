@@ -1,6 +1,8 @@
 import React, {useRef} from "react";
-import styles from "./Sidebar.module.css"
+import NavbarMobile from "./Navbar/NavbarMobile";
+import Navbar from "./Navbar/Navbar";
 
+import styles from "./Sidebar.module.css"
 
 function Sidebar(){
     const windowWidth = useRef(window.innerWidth);
@@ -12,7 +14,7 @@ function Sidebar(){
                 </div>
 
                 <div id={styles['middle']}>
-                    <SidebarInside></SidebarInside>
+                    <Navbar></Navbar>
                 </div>
 
                 <div id={styles['bottom']}>
@@ -25,18 +27,11 @@ function Sidebar(){
         return (
             <div id={styles['navbar_mobile']}>
                 <div id={styles['middle']}>
-                    <SidebarInside></SidebarInside>
+                    <NavbarMobile></NavbarMobile>
                 </div>
             </div>
         )
     }
-
-}
-
-function SidebarInside(){
-    return(
-        <div></div>
-    )
 
 }
 

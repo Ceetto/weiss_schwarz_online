@@ -1,17 +1,15 @@
-import React from 'react';
+import styles from "./styles.module.css";
 import Sidebar from "../Components/Sidebar/Sidebar";
-import styles from "./styles.module.css"
 import Content from "../Components/Content/Content";
+import React from "react";
 
-function Home() {
-
-    return (
+function Decks(){
+    return(
         <div id={styles['main']}>
             <Sidebar></Sidebar>
-            <Content screen={"home"}></Content>
+            <Content screen={"decks"}></Content>
         </div>
-
-    );
+    )
 }
 
-export default Home;
+export default Decks;

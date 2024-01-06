@@ -16,11 +16,11 @@
 }
 
 .normal_text{
-    color: var(--colour-main-weiss);
+    color: var(--color-main-weiss);
 }
 
 .error{
-    color: var(--colour-error);
+    color: var(--color-error);
 }
 
 #login_screen{
@@ -79,11 +79,11 @@
     width: 100%;
 }
 .login_textfield label{
-    color: var(--colour-textfield-labels);
+    color: var(--color-textfield-labels);
     font-size: 15px;
 }
 .login_textfield input{
-    color: var(--colour-main-weiss);
+    color: var(--color-main-weiss);
 }
 
 #login_buttons{

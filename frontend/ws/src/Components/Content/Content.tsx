@@ -1,8 +1,9 @@
 import React from "react";
-import styles from "./Content.module.css"
 import Login from "./Login/Login";
 import Register from "./Login/Register";
 import Home from "./Home/Home";
+
+import styles from "./Content.module.css"
 
 interface ContentProps{
     screen: string,
@@ -28,6 +29,27 @@ function Content(props: ContentProps){
             return (
                 <div id={styles['main']}>
                     <Home></Home>
+                </div>
+            )
+        }
+        case "play": {
+            return(
+                <div id={styles['main']}>
+                    Play game page
+                </div>
+            )
+        }
+        case "decks": {
+            return(
+                <div id={styles['main']}>
+                    Decks page
+                </div>
+            )
+        }
+        case "profile": {
+            return (
+                <div id={styles['main']}>
+                    Profile page
                 </div>
             )
         }

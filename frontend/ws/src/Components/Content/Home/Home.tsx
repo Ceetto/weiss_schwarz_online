@@ -3,8 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {getMe, logout} from "../../../api/apiModule"
 import {User} from "../../../api/types"
 
-import styles from "../Content.module.css";
 import {Button, CircularProgress} from "@mui/material";
+import styles from "../Content.module.css";
 
 function Home (){
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Home (){
             }
         }
         fetchData();
-    }, [])
+    }, [navigate])
 
     const handleLogout = () => {
         logout();

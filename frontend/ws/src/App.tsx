@@ -7,6 +7,9 @@ import Login from "./Pages/Login";
 import "./variables.css";
 import Register from "./Pages/Register";
 import api from "./api/api";
+import Play from "./Pages/Play";
+import Decks from "./Pages/Decks";
+import Profile from "./Pages/Profile";
 
 function App() {
     useEffect(() => {
@@ -30,8 +33,11 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/login/" element={<Login/>} />
-                    <Route path="/register/" element={<Register/>}></Route>
+                    <Route path="/login/" element={<Login/>}/>
+                    <Route path="/register/" element={<Register/>}/>
+                    <Route path="play" element={<Play/>}/>
+                    <Route path="decks" element={<Decks/>}/>
+                    <Route path="profile" element={<Profile/>}/>
                 </Routes>
             </BrowserRouter>
     );
