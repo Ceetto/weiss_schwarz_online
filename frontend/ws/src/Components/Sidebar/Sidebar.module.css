@@ -5,6 +5,7 @@
     background-color: #3E363688;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 #navbar_mobile{
@@ -37,6 +38,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
 }
 
 #bottom{
@@ -59,7 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     overflow: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;

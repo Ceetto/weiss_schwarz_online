@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../Content.module.css"
 import {Button, TextField} from "@mui/material";
+import DeckEntry from "./DeckEntry";
 
 function Decks() {
     return(
@@ -36,6 +37,14 @@ function Decks() {
 
             </div>
             <div className={styles["content_inner"]}>
+                {Array(10).fill(true).map(() => (
+                    <DeckEntry name={"Dummy"}
+                               characters={38} events={4} climax={8}
+                               souls={14} level_0={18}
+                               level_1={10} level_2={2} level_3={12}
+                               yellow={15} green={15} red={10} blue={10}
+                    />
+                ))}
 
             </div>
         </div>

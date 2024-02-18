@@ -1,6 +1,6 @@
 import React from "react";
 import {Button} from "@mui/material";
-import {DecksIcon, HomeIcon, PlayIcon, ProfileIcon} from "./Icons";
+import {DecksIcon, HomeIcon, PlayIcon, ProfileIcon} from "../../Icons/Icons";
 
 import styles from "../Sidebar.module.css"
 import {useNavigate} from "react-router-dom";

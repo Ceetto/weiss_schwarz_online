@@ -34,7 +34,8 @@ function Profile(){
             <div>
                 <h2 className={styles["normal_text"]}>Welcome, {user.username}</h2>
                 <Button
-                    variant="contained"
+                    className={styles["normal_button"]}
+                    variant="outlined"
                     onClick={() => {handleLogout()}}
                 >
                     Log Out
