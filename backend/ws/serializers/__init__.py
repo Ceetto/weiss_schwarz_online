@@ -9,7 +9,7 @@ from ws.serializers.card import (
     CardSerializer,
     NeoSerializer,
 )
-from ws.serializers.deck import DeckSerializer
+from ws.serializers.deck import DeckSerializer, DeckStatsSerializer
 from ws.serializers.set import SetSerializer
 from ws.serializers.user import UserSerializer
 
@@ -18,6 +18,7 @@ __all__ = [
     "AttributeSerializer",
     "CardSerializer",
     "DeckSerializer",
+    "DeckStatsSerializer",
     "NeoSerializer",
     "SetSerializer",
     "UserSerializer",

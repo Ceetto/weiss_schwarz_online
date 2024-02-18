@@ -4,6 +4,8 @@ import Register from "./Login/Register";
 import Home from "./Home/Home";
 
 import styles from "./Content.module.css"
+import Profile from "./Profile/Profile";
+import Decks from "./Decks/Decks";
 
 interface ContentProps{
     screen: string,
@@ -42,14 +44,14 @@ function Content(props: ContentProps){
         case "decks": {
             return(
                 <div id={styles['main']}>
-                    Decks page
+                    <Decks></Decks>
                 </div>
             )
         }
         case "profile": {
             return (
                 <div id={styles['main']}>
-                    Profile page
+                    <Profile></Profile>
                 </div>
             )
         }

@@ -1,5 +1,5 @@
 import api from "./api";
-import {User} from "./types"
+import {Deck, User} from "./types"
 
 async function login(username: string, password: string){
     const response = await api
@@ -32,6 +32,9 @@ async function getMe(): Promise<User>{
     };
 }
 
+// async function getDecks(): Promise<Deck>{
+//
+// }
 
 
 export {

@@ -9,42 +9,21 @@ import styles from "../Content.module.css";
 function Home (){
     const navigate = useNavigate();
 
-    const [user, setUser] = useState<User|null>(null)
-
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const me = await getMe();
-                setUser(me);
+                await getMe();
             } catch (err:any){
                 navigate("/login")
             }
         }
         fetchData();
     }, [navigate])
-
-    const handleLogout = () => {
-        logout();
-        navigate("/login")
-    }
-    if (user){
-        return (
-            <div>
-                <h2 className={styles["normal_text"]}>Welcome, {user?.username}</h2>
-                <Button
-                    variant="contained"
-                    onClick={() => {handleLogout()}}
-                >
-                    Log Out
-                </Button>
-            </div>
-        )
-    } else {
-        return (
-            <CircularProgress />
-        )
-    }
-
+    return (
+        <div>
+            Home Page
+        </div>
+    )
 }
 
 export default Home
