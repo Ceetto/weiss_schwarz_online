@@ -24,7 +24,7 @@ export type Card = {
     abilities: number[]
 }
 
-export type ability = {
+export type Ability = {
     id: number;
     text: string;
 }
@@ -35,4 +35,21 @@ export type Deck = {
     active: boolean;
     legal: boolean;
     cards: Card[];
+}
+
+export type DeckStats = {
+    deck_id: number;
+    deck_name: string;
+    level_0 : number;
+    level_1 : number;
+    level_2 : number;
+    level_3 : number;
+    character : number;
+    events : number;
+    climax: number;
+    souls : number;
+    yellow: number;
+    green : number;
+    red : number;
+    blue : number;
 }
