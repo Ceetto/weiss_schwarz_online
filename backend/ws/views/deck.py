@@ -152,6 +152,13 @@ class DeckViewSet(viewsets.ModelViewSet):
         deck_serializer = DeckSerializer(decks, many=True)
         return Response(deck_serializer.data, status=status.HTTP_200_OK)
 
+    @action(methods=["GET"], detail=False)
+    def my_decks_stats(self, request, *args, **kwargs):
+        decks = Deck.objects.filter(user=request.user).filter(active=True)
+        deckstats = DeckStats.objects.filter(deck__in=decks)
+        deckstats_serializer = DeckStatsSerializer(deckstats, many=True)
+        return Response(deckstats_serializer.data, status=status.HTTP_200_OK)
+
     @action(methods=["GET"], detail=True)
     def stats(self, request, *args, **kwargs):
         stats = DeckStats.objects.get(deck_id=self.get_object().id)

@@ -1,9 +1,50 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../Content.module.css"
-import {Button, TextField} from "@mui/material";
+import {Button, CircularProgress, TextField} from "@mui/material";
 import DeckEntry from "./DeckEntry";
+import {useNavigate} from "react-router-dom";
+import {DeckStats} from "../../../api/types";
+import {getMyDeckStats} from "../../../api/apiModule"
 
 function Decks() {
+
+    const navigate = useNavigate();
+
+    const [decks, setDecks] = useState<DeckStats[]|null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const decks = await getMyDeckStats();
+                setDecks(decks);
+            } catch (err:any){
+                navigate("/login")
+            }
+        }
+        fetchData();
+    }, [navigate]);
+
+    const DeckList = () => {
+        if(decks){
+            return(
+                <>
+                    {decks.map((deck) => (
+                        <DeckEntry name={deck.deck_name}
+                                   characters={deck.character} events={deck.events} climax={deck.climax}
+                                   souls={deck.souls} level_0={deck.level_0}
+                                   level_1={deck.level_1} level_2={deck.level_2} level_3={deck.level_3}
+                                   yellow={deck.yellow} green={deck.green} red={deck.red} blue={deck.blue}
+                        />
+                    ))}
+                </>
+            )
+        } else {
+            return (
+                <CircularProgress></CircularProgress>
+            )
+        }
+    }
+
     return(
         <div className={styles["content_outer"]}>
             <div className={styles["content_top"]}>
@@ -37,15 +78,7 @@ function Decks() {
 
             </div>
             <div className={styles["content_inner"]}>
-                {Array(10).fill(true).map(() => (
-                    <DeckEntry name={"Dummy"}
-                               characters={38} events={4} climax={8}
-                               souls={14} level_0={18}
-                               level_1={10} level_2={2} level_3={12}
-                               yellow={15} green={15} red={10} blue={10}
-                    />
-                ))}
-
+                {DeckList()}
             </div>
         </div>
     )

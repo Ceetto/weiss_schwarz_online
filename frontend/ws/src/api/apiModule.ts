@@ -1,5 +1,5 @@
 import api from "./api";
-import {Deck, User} from "./types"
+import {Deck, DeckStats, User} from "./types"
 
 async function login(username: string, password: string){
     const response = await api
@@ -32,9 +32,30 @@ async function getMe(): Promise<User>{
     };
 }
 
-// async function getDecks(): Promise<Deck>{
-//
-// }
+async function getMyDeckStats(): Promise<DeckStats[]>{
+    const response = await api.get("/decks/my_decks_stats/")
+    const data = response.data;
+    let result:DeckStats[] = [];
+    for(let i = 0; i < data.length; i++){
+        result.push({
+            deck_id: data[i]["deck"],
+            deck_name: data[i]["deck_name"],
+            level_0 : data[i]["level_0"],
+            level_1 : data[i]["level_1"],
+            level_2 : data[i]["level_2"],
+            level_3 : data[i]["level_3"],
+            character : data[i]["character"],
+            events : data[i]["events"],
+            climax: data[i]["climax"],
+            souls : data[i]["souls"],
+            yellow: data[i]["yellow"],
+            green : data[i]["green"],
+            red : data[i]["red"],
+            blue : data[i]["blue"],
+        })
+    }
+    return result;
+}
 
 
 export {
@@ -42,4 +63,5 @@ export {
     register,
     logout,
     getMe,
+    getMyDeckStats
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Decks.module.css"
 import styles2 from "../Content.module.css"
-import {IconButton} from "@mui/material";
+import {Icon, IconButton} from "@mui/material";
 import {EditIcon, EditIcon2, ForkIcon, DeleteIcon} from "../../Icons/Icons"
 
 interface DeckProps{
@@ -60,7 +60,9 @@ function DeckEntry(props: DeckProps) {
                 </div>
             </div>
             <div id={styles["right_inner_box"]}>
-
+                <IconButton style={{"color":"red"}}>
+                    <DeleteIcon></DeleteIcon>
+                </IconButton>
             </div>
         </div>
     )
