@@ -186,3 +186,7 @@
 .search_field label {
     color: var(--color-main-grey);
 }
+
+.dialog{
+    color: var(--color-background-grey);
+}

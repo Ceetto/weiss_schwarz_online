@@ -3,8 +3,10 @@ import styles from "./Decks.module.css"
 import styles2 from "../Content.module.css"
 import {Icon, IconButton} from "@mui/material";
 import {EditIcon, EditIcon2, ForkIcon, DeleteIcon} from "../../Icons/Icons"
+import {deleteDeck} from "../../../api/apiModule"
 
 interface DeckProps{
+    deck_id: number,
     name: string,
     characters: number,
     events: number,
@@ -18,9 +20,22 @@ interface DeckProps{
     green: number,
     red: number,
     blue: number,
+    setRefresh: React.Dispatch<React.SetStateAction<boolean>>,
+    refresh: boolean,
 }
 
 function DeckEntry(props: DeckProps) {
+
+    const delDeck = async function(id: number){
+        try{
+            await deleteDeck(id);
+            props.setRefresh(!props.refresh)
+        } catch(err: any) {
+            console.log(err.toString())
+        }
+    }
+
+
     return (
         <div id={styles["outer_box"]}>
             <div id={styles["left_inner_box"]}>
@@ -60,7 +75,11 @@ function DeckEntry(props: DeckProps) {
                 </div>
             </div>
             <div id={styles["right_inner_box"]}>
-                <IconButton style={{"color":"red"}}>
+                <IconButton style={{"color":"red"}}
+                    onClick={() => {
+                        delDeck(props.deck_id)
+                    }}
+                >
                     <DeleteIcon></DeleteIcon>
                 </IconButton>
             </div>

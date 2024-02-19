@@ -57,11 +57,21 @@ async function getMyDeckStats(): Promise<DeckStats[]>{
     return result;
 }
 
+async function encoredecks(url: string, name: string){
+    await api.post("/decks/encoredecks/", {url, name});
+}
+
+async function deleteDeck(deck_id: number){
+    await api.delete("/decks/"+deck_id+"/");
+}
+
 
 export {
     login,
     register,
     logout,
     getMe,
-    getMyDeckStats
+    getMyDeckStats,
+    encoredecks,
+    deleteDeck,
 }

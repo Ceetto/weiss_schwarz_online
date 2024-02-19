@@ -20,6 +20,7 @@ function Login(){
             .catch(err =>{
                 setLogLoading(false);
                 setError(true);
+                console.log(err)
             })
         setLogLoading(false);
     }

@@ -63,9 +63,9 @@ class DeckViewSet(viewsets.ModelViewSet):
                 elif card.type == "Climax":
                     stats.climax += 1
 
-                if card.trigger in ["1 soul", "return", "shot", "gate", "standby"]:
+                if card.trigger in ["Soul1", "Return", "Shot", "Gate", "Standby"]:
                     stats.souls += 1
-                elif card.trigger == "2 soul":
+                elif card.trigger == "Soul2":
                     stats.souls += 1
 
                 deck_card = DeckCard(card_id=c, deck=deck)
@@ -74,7 +74,7 @@ class DeckViewSet(viewsets.ModelViewSet):
             return Response(
                 DeckSerializer(deck, many=False).data, status=status.HTTP_201_CREATED
             )
-        except KeyError:
+        except:
             return Response(
                 {"Fail": "Wrong data, give a name, public status, neo standard and list of cards"},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -128,9 +128,9 @@ class DeckViewSet(viewsets.ModelViewSet):
                 elif card.type == "Climax":
                     stats.climax += 1
 
-                if card.trigger in ["1 soul", "return", "shot", "gate", "standby"]:
+                if card.trigger in ["Soul1", "Return", "Shot", "Gate", "Standby"]:
                     stats.souls += 1
-                elif card.trigger == "2 soul":
+                elif card.trigger == "Soul2":
                     stats.souls += 1
                 stats.save()
 
@@ -159,8 +159,25 @@ class DeckViewSet(viewsets.ModelViewSet):
         deckstats = DeckStats.objects.filter(deck__in=decks)
         deckstats_serializer = DeckStatsSerializer(deckstats, many=True)
 
-        deck_id = "https://www.encoredecks.com/deck/KGUW1iaNS".split('/')[-1]
-        api = "https://www.encoredecks.com/api/deck/" + deck_id
+        return Response(deckstats_serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=["GET"], detail=True)
+    def stats(self, request, *args, **kwargs):
+        stats = DeckStats.objects.get(deck_id=self.get_object().id)
+        deck_stats_serializer = DeckStatsSerializer(stats, many=False)
+        return Response(deck_stats_serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=["POST"], detail=False)
+    def encoredecks(self, request, *args, **kwargs):
+        try:
+            deck_id = request.data["url"].split('/')[-1]
+            api = "https://www.encoredecks.com/api/deck/" + deck_id
+            name = request.data["name"]
+        except KeyError:
+            return Response(
+                {"Fail": "Please provide a valid url and a name"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         headers = {
             'Accept': 'application/json, text/plain, */*',
@@ -178,22 +195,33 @@ class DeckViewSet(viewsets.ModelViewSet):
             'sec-ch-ua-platform': '"Windows"',
         }
 
-        response = requests.get(api, headers=headers)
-        data = response.json()
-        print(data)
+        try:
+            response = requests.get(api, headers=headers)
+            data = response.json()
+        except:
+            return Response({
+                "Fail": "Deck Not Found"
+            }, status=status.HTTP_404_NOT_FOUND)
 
-        return Response(deckstats_serializer.data, status=status.HTTP_200_OK)
+        if len(data["cards"]) <= 0:
+            return Response({
+                "Fail": "Deck may not be empty"
+            }, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(methods=["GET"], detail=True)
-    def stats(self, request, *args, **kwargs):
-        stats = DeckStats.objects.get(deck_id=self.get_object().id)
-        deck_stats_serializer = DeckStatsSerializer(stats, many=False)
-        return Response(deck_stats_serializer.data, status=status.HTTP_200_OK)
+        neo = data["cards"][0]["set"]
+        cards = []
+        for card in data["cards"]:
+            cards.append(card["side"]+card["release"]+"-"+card["sid"])
 
-    @action(methods=["POST"], detail=False)
-    def encoredecks(self, request, *args, **kwargs):
-
-        return super().create(request, *args, **kwargs)
+        request.data["name"] = name
+        request.data["cards"] = cards
+        request.data["neo"] = neo
+        request.data["public"] = True
+        try:
+            return self.create(request, *args, **kwargs)
+        except:
+            return Response({"Fail": "Incorrect data, check all are english cards"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
     # TODO check legality of deck
     def check_deck_legality(self, deck: list[str]):
