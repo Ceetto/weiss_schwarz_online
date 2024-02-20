@@ -1,0 +1,9 @@
+:root {
+    --color-main-weiss: #FFF;
+    --color-main-schwarz: #222;
+    --color-main-grey: #3E3636;
+    --color-background-grey: rgba(62, 54, 54, 0.5);
+    --color-textfield-background-black: rgba(17, 17, 17, 0.5);
+    --color-textfield-labels: rgba(230, 230, 230, 0.7);
+    --color-error: #e01818;
+}

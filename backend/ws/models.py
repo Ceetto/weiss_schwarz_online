@@ -20,7 +20,7 @@ class Set(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=10, unique=True)
     setId = models.CharField(max_length=10, primary_key=True)
-    neo = models.ForeignKey(Neo, on_delete=models.CASCADE, related_name="sets")
+    neo = models.ForeignKey(Neo, on_delete=models.RESTRICT, related_name="sets")
 
 
 class Ability(models.Model):
@@ -31,8 +31,8 @@ class Card(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=20)
     sid = models.CharField(max_length=20, primary_key=True)
-    set = models.ForeignKey(Set, on_delete=models.CASCADE, related_name="cards")
-    neo = models.ForeignKey(Neo, on_delete=models.CASCADE, related_name="cards")
+    set = models.ForeignKey(Set, on_delete=models.RESTRICT, related_name="cards")
+    neo = models.ForeignKey(Neo, on_delete=models.RESTRICT, related_name="cards")
     rarity = models.CharField(max_length=10)
     TYPE_CHOICES = [
         ("Character", "Character"),
@@ -68,6 +68,7 @@ class Card(models.Model):
 
 class Deck(models.Model):
     name = models.CharField(max_length=255)
+    neo = models.ForeignKey(Neo, on_delete=models.RESTRICT, related_name="decks", default=None)
     cards = models.ManyToManyField(Card, through="DeckCard")
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="decks"
@@ -80,6 +81,22 @@ class Deck(models.Model):
 class DeckCard(models.Model):
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
+
+
+class DeckStats(models.Model):
+    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    level_0 = models.SmallIntegerField(null=False, default=0)
+    level_1 = models.SmallIntegerField(null=False, default=0)
+    level_2 = models.SmallIntegerField(null=False, default=0)
+    level_3 = models.SmallIntegerField(null=False, default=0)
+    characters = models.SmallIntegerField(null=False, default=0)
+    events = models.SmallIntegerField(null=False, default=0)
+    climax = models.SmallIntegerField(null=False, default=0)
+    souls = models.SmallIntegerField(null=False, default=0)
+    yellow = models.SmallIntegerField(null=False, default=0)
+    green = models.SmallIntegerField(null=False, default=0)
+    red = models.SmallIntegerField(null=False, default=0)
+    blue = models.SmallIntegerField(null=False, default=0)
 
 
 class Result(models.Model):

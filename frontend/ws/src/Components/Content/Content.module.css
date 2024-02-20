@@ -1,0 +1,192 @@
+#main{
+    width: 100vw;
+    height: calc(100vh - 40px);
+    min-height: 300px;
+    margin: 20px 50px;
+    background-color: var(--color-background-grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#main::-webkit-scrollbar{
+    display: none;
+}
+
+.normal_text{
+    color: var(--color-main-weiss);
+}
+
+.no_margin_text{
+    margin: 0;
+}
+
+.error{
+    color: var(--color-error);
+}
+
+#login_screen{
+    height: 100%;
+    width: 50%;
+    min-width: 200px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+}
+
+#logo_img{
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}
+
+#login_fields_and_buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 10px;
+}
+#login_fields_and_buttons::-webkit-scrollbar{
+    display: none;
+}
+
+#login_fields_group{
+    /*padding-top: 10px;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#login_field{
+    margin: 5px 0;
+    background-color: var(--color-textfield-background-black);
+    width: 100%;
+}
+
+.login_textfield {
+    width: 100%;
+}
+.login_textfield label{
+    color: var(--color-textfield-labels);
+    font-size: 15px;
+}
+.login_textfield input{
+    color: var(--color-main-weiss);
+}
+
+#login_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+    width: 100%;
+}
+
+.login_button{
+    width: 100%;
+    height: 60px;
+}
+
+.content_outer{
+    height: 97%;
+    width: 95%;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content_top{
+    height: 20%;
+    width: 100%;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_inner{
+    height: 80%;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.content_inner::-webkit-scrollbar{
+    display: none;
+}
+
+.horizontal_box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.normal_button{
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+    color: var(--color-main-weiss) !important;
+    background-color: var(--color-textfield-background-black) !important;
+    border-color: var(--color-main-weiss) !important;
+    border-width: 1px !important;
+    border-radius: 0 !important;
+}
+
+.normal_button_text{
+    display: flex;
+    align-items: center;
+}
+
+.search_field_box{
+    margin: 20px 0;
+    background-color: var(--color-textfield-background-black);
+    width: 100%;
+    /*height: 10px;*/
+}
+
+.search_field {
+    width: 100%;
+    height: 100%;
+    outline-color: var(--color-main-weiss);
+}
+
+.search_field input {
+    color: var(--color-main-weiss);
+    height: 100%;
+}
+
+.search_field label {
+    color: var(--color-main-grey);
+}
+
+.dialog{
+    color: var(--color-background-grey);
+}
