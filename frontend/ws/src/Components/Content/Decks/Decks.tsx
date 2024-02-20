@@ -57,7 +57,7 @@ function Decks() {
             return(
                 <>
                     {decks.map((deck) => (
-                        <DeckEntry name={deck.deck_name} deck_id={deck.deck_id} setRefresh={setRefresh} refresh={refresh}
+                        <DeckEntry key={deck.deck_id} name={deck.deck_name} deck_id={deck.deck_id} setRefresh={setRefresh} refresh={refresh}
                                    characters={deck.characters} events={deck.events} climax={deck.climax}
                                    souls={deck.souls} level_0={deck.level_0}
                                    level_1={deck.level_1} level_2={deck.level_2} level_3={deck.level_3}

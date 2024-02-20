@@ -35,9 +35,9 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login/" element={<Login/>}/>
                     <Route path="/register/" element={<Register/>}/>
-                    <Route path="play" element={<Play/>}/>
-                    <Route path="decks" element={<Decks/>}/>
-                    <Route path="profile" element={<Profile/>}/>
+                    <Route path="/play/" element={<Play/>}/>
+                    <Route path="/decks/" element={<Decks/>}/>
+                    <Route path="/profile/" element={<Profile/>}/>
                 </Routes>
             </BrowserRouter>
     );
