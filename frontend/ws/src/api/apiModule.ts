@@ -44,7 +44,7 @@ async function getMyDeckStats(): Promise<DeckStats[]>{
             level_1 : data[i]["level_1"],
             level_2 : data[i]["level_2"],
             level_3 : data[i]["level_3"],
-            character : data[i]["character"],
+            characters : data[i]["characters"],
             events : data[i]["events"],
             climax: data[i]["climax"],
             souls : data[i]["souls"],
