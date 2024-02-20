@@ -6,6 +6,7 @@ import Home from "./Home/Home";
 import styles from "./Content.module.css"
 import Profile from "./Profile/Profile";
 import Decks from "./Decks/Decks";
+import Play from "./Play/Play";
 
 interface ContentProps{
     screen: string,
@@ -37,7 +38,7 @@ function Content(props: ContentProps){
         case "play": {
             return(
                 <div id={styles['main']}>
-                    Play game page
+                    <Play></Play>
                 </div>
             )
         }
