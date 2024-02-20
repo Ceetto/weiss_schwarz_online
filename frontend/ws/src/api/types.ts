@@ -44,7 +44,7 @@ export type DeckStats = {
     level_1 : number;
     level_2 : number;
     level_3 : number;
-    character : number;
+    characters : number;
     events : number;
     climax: number;
     souls : number;
