@@ -10,6 +10,7 @@ import api from "./api/api";
 import Play from "./Pages/Play";
 import Decks from "./Pages/Decks";
 import Profile from "./Pages/Profile";
+import Game from "./Pages/Game";
 
 function App() {
     useEffect(() => {
@@ -26,7 +27,7 @@ function App() {
             }
 
         };
-        hideStatusBar();
+        hideStatusBar().then().catch();
     })
 
     return (
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/play/" element={<Play/>}/>
                     <Route path="/decks/" element={<Decks/>}/>
                     <Route path="/profile/" element={<Profile/>}/>
+                    <Route path="/game/" element={<Game/>}/>
                 </Routes>
             </BrowserRouter>
     );

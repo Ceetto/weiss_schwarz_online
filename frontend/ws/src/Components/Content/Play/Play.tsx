@@ -2,6 +2,7 @@ import * as Colyseus from "colyseus.js";
 import {MyRoomState} from "./ColyseusSchemas/MyRoomState"
 import React, {useEffect, useState} from "react";
 import styles from "../Content.module.css"
+import roomListStyles from "./Play.module.css";
 import {Button, CircularProgress, Icon, IconButton, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {User} from "../../../api/types";
@@ -28,7 +29,7 @@ function Play() {
             }
         }
         fetchData();
-    }, [navigate]);
+    }, []);
 
     useEffect(() => {
         const fetchRooms = async () => {
@@ -43,17 +44,44 @@ function Play() {
 
 
     const createRoom = async () => {
-        if (user){
-            try {
-                const room: Colyseus.Room<MyRoomState> = await client.create("my_room", {"username": user.username});
-                console.log("succesfully created room ", room)
-                room.state.players.onChange((v, k) => {
-                    console.log(Array.from(room.state.players.values()));
-                })
-            } catch (e) {
-                console.log("join error ", e);
+        navigate("/game/", {
+            state: {
+                createRoom: true,
+                roomId: "",
             }
+        });
+    }
+
+    interface RoomElementProps{
+        player1: string,
+        room_id: string,
+    }
+    const RoomListElement = (props: RoomElementProps) => {
+        const joinRoom = () => {
+            navigate("/game/", {
+                state: {
+                    createRoom: false,
+                    roomId: props.room_id,
+                }
+            })
         }
+
+        return(
+            <div id={roomListStyles["outer_box"]}>
+                <div id={roomListStyles["left_inner_box"]}>
+                    <p className={styles["normal_text"]}>{props.player1}</p>
+                </div>
+                <div id={roomListStyles["right_inner_box"]}>
+                    <Button className={styles["normal_button"]}
+                        onClick={() => {
+                            joinRoom();
+                        }}
+                    >
+                        Join Game
+                    </Button>
+                </div>
+            </div>
+        )
     }
 
     const RoomsList = () => {
@@ -65,6 +93,9 @@ function Play() {
             } else {
                 return(
                     <>
+                        {rooms.map((room) => (
+                            <RoomListElement player1={room.metadata["player1_username"]} room_id={room.roomId}/>
+                        ))}
                     </>
                 )
             }

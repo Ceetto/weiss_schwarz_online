@@ -32,7 +32,8 @@ export class GameState extends Schema {
 
 export class MyRoomState extends Schema {
 
-  @type("string") property: string = "Hello world";
-  @type(["string"]) players = new ArraySchema<string>();
+  @type("string") player1: string = "";
+  @type("string") player2: string = "";
+
 
 }

@@ -8,19 +8,16 @@ export class MyRoom extends Room<MyRoomState> {
     this.setState(new MyRoomState());
     this.setMetadata({spectators: 0});
 
-    this.onMessage("test", (client, message) => {
-      this.state.property = message["property"]
-    });
   }
-
 
   onJoin (client: Client, options: {username: string }) {
     console.log(client.sessionId, "joined!");
-    console.log(this.roomId + " " + this.clients.length)
     if (this.clients.length == 1){
       this.setMetadata({player1_username: options.username, player1_id: client.sessionId});
+      this.state.player1 = options.username;
     } else if (this.clients.length == 2) {
-      this.setMetadata({player2_username: options.username, player2_id: client.sessionId})
+      this.setMetadata({player2_username: options.username, player2_id: client.sessionId});
+      this.state.player2 = options.username;
     } else {
       this.setMetadata({spectators: this.metadata.spectators + 1});
     }

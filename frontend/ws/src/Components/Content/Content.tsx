@@ -7,6 +7,7 @@ import styles from "./Content.module.css"
 import Profile from "./Profile/Profile";
 import Decks from "./Decks/Decks";
 import Play from "./Play/Play";
+import Game from "./Play/Game";
 
 interface ContentProps{
     screen: string,
@@ -53,6 +54,13 @@ function Content(props: ContentProps){
             return (
                 <div id={styles['main']}>
                     <Profile></Profile>
+                </div>
+            )
+        }
+        case "game": {
+            return (
+                <div id={styles['main']}>
+                    <Game></Game>
                 </div>
             )
         }

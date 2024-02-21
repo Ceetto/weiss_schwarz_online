@@ -9,6 +9,6 @@ import { Schema, type, ArraySchema, MapSchema, SetSchema, DataChange } from '@co
 
 
 export class MyRoomState extends Schema {
-    @type("string") public property!: string;
-    @type([ "string" ]) public players: ArraySchema<string> = new ArraySchema<string>();
+    @type("string") public player1!: string;
+    @type("string") public player2!: string;
 }
