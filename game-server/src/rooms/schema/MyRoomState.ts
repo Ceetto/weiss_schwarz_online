@@ -35,5 +35,4 @@ export class MyRoomState extends Schema {
   @type("string") player1: string = "";
   @type("string") player2: string = "";
 
-
 }

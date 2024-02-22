@@ -70,24 +70,33 @@ function Game() {
             }
         }
 
-        if (state.createRoom){
-            createRoom().then((r) => {
-                if (r){
-                    setRoom(r);
-                }
-            })
-        } else {
-            joinRoom().then((r) => {
-                if (r){
-                    setRoom(r);
-                }
-            })
+        try {
+            if (state.createRoom){
+                createRoom().then((r) => {
+                    if (r){
+                        setRoom(r);
+                    }
+                })
+            } else {
+                joinRoom().then((r) => {
+                    if (r){
+                        setRoom(r);
+                    }
+                })
+            }
+        } catch (err) {
+            navigate("/")
         }
+
 
     }, [user]);
 
     const leaveRoom =  () => {
-        navigate('/play/')
+        if (room){
+            room.send("leave")
+            navigate('/play/')
+        }
+
     }
 
     if (user) {

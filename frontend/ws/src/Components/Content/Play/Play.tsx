@@ -54,6 +54,7 @@ function Play() {
 
     interface RoomElementProps{
         player1: string,
+        player2: string,
         room_id: string,
     }
     const RoomListElement = (props: RoomElementProps) => {
@@ -69,7 +70,7 @@ function Play() {
         return(
             <div id={roomListStyles["outer_box"]}>
                 <div id={roomListStyles["left_inner_box"]}>
-                    <p className={styles["normal_text"]}>{props.player1}</p>
+                    <p className={styles["normal_text"]}>{props.player1} vs {props.player2}</p>
                 </div>
                 <div id={roomListStyles["right_inner_box"]}>
                     <Button className={styles["normal_button"]}
@@ -94,7 +95,9 @@ function Play() {
                 return(
                     <>
                         {rooms.map((room) => (
-                            <RoomListElement player1={room.metadata["player1_username"]} room_id={room.roomId}/>
+                            <RoomListElement player1={room.metadata["player1_username"]}
+                                             player2={room.metadata["player2_username"]}
+                                             room_id={room.roomId}/>
                         ))}
                     </>
                 )
